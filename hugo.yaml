@@ -11,10 +11,28 @@ markup:
   goldmark:
     renderer:
       unsafe: true
-
   # enable hextra syntax highlight
   highlight:
     noClasses: false
+  tableOfContents:
+    startLevel: 2
+    endLevel: 4
+    ordered: true
+
+params:
+  mermaid:
+    enable: true
+  navbar:
+    displayTitle: true
+    displayLogo: false
+
+  footer:
+    displayCopyright: false
+    displayPoweredBy: true
+
+  editURL:
+    enable: true
+    base: "https://github.com/shadow3aaa/blog/edit/main/content"
 
 menu:
   main:
@@ -33,16 +51,3 @@ menu:
       url: "https://github.com/shadow3aaa/blog"
       params:
         icon: github
-
-params:
-  navbar:
-    displayTitle: true
-    displayLogo: false
-
-  footer:
-    displayCopyright: false
-    displayPoweredBy: true
-
-  editURL:
-    enable: true
-    base: "https://github.com/shadow3aaa/blog/edit/main/content"

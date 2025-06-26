@@ -9,6 +9,7 @@ date: 2024-06-26
 
 之前的架构中组件是这样来的
 
+<!--more-->
 ```mermaid
 graph LR
     subgraph "CPU: 定义与命令转换"
