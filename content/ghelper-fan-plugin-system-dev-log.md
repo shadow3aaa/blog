@@ -1,27 +1,31 @@
 ---
 title: 为 Asus 笔记本添加 PID 风扇控制
 date: 2025-06-30
+math: true
 ---
 
-正值夏日，AMD酷热难当，好似室内暖机，惹得风扇轰鸣。
+正值夏日，AMD 酷热难当，好似室内暖机，惹得风扇轰鸣。
 
 ## PID 算法简介
 
-PID（比例-积分-微分）控制器是<!--more-->一种广泛应用于工业控制系统的反馈回路机制。它通过计算误差（设定值与实际值之间的差异），并根据比例、积分和微分三个部分来调整输出，从而实现对系统的精确控制。
+PID（比例-积分-微分）控制器是一种广泛应用于工业控制系统的反馈回路机制。<!--more-->它通过计算误差（设定值与实际值之间的差异），并根据比例、积分和微分三个部分来调整输出，从而实现对系统的精确控制。
 PID 控制器的基本公式为：
+
 $$
 u(t) = K_p e(t) + K_i \int_0^t e(\tau) d\tau + K_d \frac{de(t)}{dt}
 $$
+
 其中：
-- \( u(t) \) 是控制输出
-- \( e(t) \) 是误差（设定值与实际值的差异）
-- \( K_p \)、\( K_i \)、\( K_d \) 分别是比例、积分和微分增益系数
+
+- \\( u(t) \\) 是控制输出
+- \\( e(t) \\) 是误差（设定值与实际值的差异）
+- \\( K_p \\)、\\( K_i \\)、\\( K_d \\) 分别是比例、积分和微分增益系数
 
 ## 探寻如何设置风扇转速
 
-我使用的是windows，有一精妙软件`GHelper`可用，盖其底层使用ACPI设置风扇曲线。则设一平坦曲线，或可实现风扇转速的手动控制。
+我使用的是 windows，有一精妙软件`GHelper`可用，盖其底层使用 ACPI 设置风扇曲线。则设一平坦曲线，或可实现风扇转速的手动控制。
 
-当即fork它，思之直接写死，颇为不雅，应加入一插件系统，接受传感器数据，返回转速，如此甚便。
+当即 fork 它，思之直接写死，颇为不雅，应加入一插件系统，接受传感器数据，返回转速，如此甚便。
 
 ## 设计插件系统
 
@@ -32,7 +36,7 @@ $$
 ```lua
 function update(sensors, dt)
     -- 你的逻辑代码在这里
-    
+
     return {
         cpu_fan = 50, -- CPU 风扇转速 (0-100)
         gpu_fan = 50, -- GPU 风扇转速 (0-100)
@@ -40,9 +44,9 @@ function update(sensors, dt)
 end
 ```
 
--   `sensors`: 一个包含所有硬件传感器数据的 `table`，例如 `sensors.cpu_temp`。
--   `dt`: 距离上次调用的时间差（秒），对于 PID 算法中的微分和积分计算至关重要。
--   **返回值**: 一个包含风扇转速目标的 `table`。
+- `sensors`: 一个包含所有硬件传感器数据的 `table`，例如 `sensors.cpu_temp`。
+- `dt`: 距离上次调用的时间差（秒），对于 PID 算法中的微分和积分计算至关重要。
+- **返回值**: 一个包含风扇转速目标的 `table`。
 
 ## 实现核心逻辑
 
@@ -81,7 +85,7 @@ public Dictionary<string, int> RunPlugin(Dictionary<string, float> sensorData)
 
 同时，我修改了主循环，将传感器刷新率提高到 `100ms`，以便插件能够更实时地响应温度变化，并定期调用 `AutoFans()` 方法来执行插件逻辑。
 
-## 编写默认的PID控制器
+## 编写默认的 PID 控制器
 
 为了提供一个开箱即用的高级示例，我编写了一个名为 `default.lua` 的 PID 控制器插件。
 
@@ -104,14 +108,14 @@ function calculate_fan_speed(pid_controller, current_temperature, dt)
   pid_controller.integral = math.max(integral_min, math.min(integral_max, pid_controller.integral))
 
   local derivative = (error - pid_controller.previous_error) / dt
-  
+
   local pid_output = (pid_controller.Kp * error) + (pid_controller.Ki * pid_controller.integral) + (pid_controller.Kd * derivative)
 
   pid_controller.previous_error = error
 
   local base_fan_speed = 30
   local fan_speed = base_fan_speed + pid_output
-  
+
   return math.max(base_fan_speed, math.min(100, fan_speed))
 end
 
