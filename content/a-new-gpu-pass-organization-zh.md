@@ -115,7 +115,7 @@ pub trait ComputeCommand {
 graph TD
     subgraph Component Layer
         A[Component A] -->|"push_draw_command"| C(DrawCommand 1);
-        B[Component B #40e.g., fluid_glass#41] -->|"push_compute_command"| D(ComputeCommand - Pass 1<br>first_pass: true);
+        B[Component B #40;e.g., fluid_glass#41;] -->|"push_compute_command"| D(ComputeCommand - Pass 1<br>first_pass: true);
         B -->|"push_compute_command"| E(ComputeCommand - Pass 2<br>first_pass: false);
         B -->|"push_draw_command"| F(DrawCommand);
     end
