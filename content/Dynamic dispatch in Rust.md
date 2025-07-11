@@ -106,7 +106,7 @@ pub pipelines: Vec<Box<dyn DrawablePipeline<dyn DrawCommand>>>,
 ```
 
 > 接下来的代码演示都是用一个简单的例子模拟的，所以报错的符号可能和描述对不上，但是逻辑是一样的。
-> 
+>
 > 对了，我使用的是[rust-script](https://github.com/fornwall/rust-script)来快速运行这个例子的，对这种场景它非常方便。
 
 然后就尴尬了，rustc直接给你一巴掌：
@@ -355,13 +355,13 @@ impl PipelineRegistry {
 
 ### 优点
 
-1.  **高度解耦和可扩展性**：这是最大的优点。渲染器核心（`PipelineRegistry`）不再关心任何具体的渲染管线实现，它只与抽象的 `ErasedDrawablePipeline` 交互。这使得任何组件库都可以定义自己的 `DrawCommand` 和 `DrawablePipeline`，然后注册进来，实现了真正的“插件式”架构。
-2.  **保留了大部分静态类型安全**：在每个具体的 `DrawablePipeline<T>` 实现内部，`command` 的类型是 `&T`，是具体的、静态的。所有的类型转换和检查都被巧妙地封装在了 `DrawablePipelineImpl` 的 `draw_erased` 方法里，开发者在使用具体的管线时，无需关心动态分发的细节。
+1. **高度解耦和可扩展性**：这是最大的优点。渲染器核心（`PipelineRegistry`）不再关心任何具体的渲染管线实现，它只与抽象的 `ErasedDrawablePipeline` 交互。这使得任何组件库都可以定义自己的 `DrawCommand` 和 `DrawablePipeline`，然后注册进来，实现了真正的“插件式”架构。
+2. **保留了大部分静态类型安全**：在每个具体的 `DrawablePipeline<T>` 实现内部，`command` 的类型是 `&T`，是具体的、静态的。所有的类型转换和检查都被巧妙地封装在了 `DrawablePipelineImpl` 的 `draw_erased` 方法里，开发者在使用具体的管线时，无需关心动态分发的细节。
 
 ### 问题与权衡
 
-1.  **运行时开销**：分发 (`dispatch`) 的过程是一个线性的循环。在最坏的情况下，如果需要执行的指令对应的管线在列表的最后一个，或者干脆不存在，那么就需要遍历整个 `Vec`，其时间复杂度是 O(n)，其中 n 是注册管线的数量。对于UI渲染这种每秒需要执行成千上万次分发的场景，如果管线数量很多，这里的性能损耗是需要考虑的。
-2.  **实现略显繁琐**：相比于简单的 `enum` 匹配，这种方法需要额外定义 `ErasedDrawablePipeline` trait 和 `DrawablePipelineImpl` 包装结构体，增加了代码量和理解成本。这是一种为了获得极高灵活性而付出的复杂度代价。
+1. **运行时开销**：分发 (`dispatch`) 的过程是一个线性的循环。在最坏的情况下，如果需要执行的指令对应的管线在列表的最后一个，或者干脆不存在，那么就需要遍历整个 `Vec`，其时间复杂度是 O(n)，其中 n 是注册管线的数量。对于UI渲染这种每秒需要执行成千上万次分发的场景，如果管线数量很多，这里的性能损耗是需要考虑的。
+2. **实现略显繁琐**：相比于简单的 `enum` 匹配，这种方法需要额外定义 `ErasedDrawablePipeline` trait 和 `DrawablePipelineImpl` 包装结构体，增加了代码量和理解成本。这是一种为了获得极高灵活性而付出的复杂度代价。
 
 ### 关于Rust限制的思考
 
