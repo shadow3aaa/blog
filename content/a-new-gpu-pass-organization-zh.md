@@ -114,32 +114,36 @@ pub trait ComputeCommand {
 ```mermaid
 graph TD
     subgraph Component Layer
-        A[Component A] -->|"push_draw_command"| C(DrawCommand 1);
-        B[Component B #40;e.g., fluid_glass#41;] -->|"push_compute_command"| D(ComputeCommand - Pass 1<br>first_pass: true);
-        B -->|"push_compute_command"| E(ComputeCommand - Pass 2<br>first_pass: false);
-        B -->|"push_draw_command"| F(DrawCommand);
+        A[Component A] -->|"push_draw_command"| S(Command Stream);
+        B[Component B #40;e.g., fluid_glass#41;] -->|"push_compute_command"| S;
+        B -->|"push_draw_command<br>with barrier"| S;
     end
 
     subgraph Renderer
-        subgraph "for cmd in collected_commands"
+        direction TB
+        Loop(Process Command Stream sequentially);
+        
+        subgraph "Inside Loop"
             direction TB
-            G{Loop through unified commands};
-            G -- "cmd.barrier().is_some()" --> H[Swap Buffers & Copy Texture];
-            G -- "No Barrier" --> I{Process Command};
-            H --> I;
-
-            subgraph "Dispatch"
-                direction TB
-                I -- "Command::Draw" --> J[Submit to Batched RenderPass];
-                I -- "Command::Compute" --> K[Submit to Batched ComputePass];
-            end
+            Cmd{Read next command};
+            Cmd --> Match{Match command type};
+            Match -- "Compute" --> Batch[Add to Compute Buffer];
+            Match -- "Draw" --> DrawPath{Is there a barrier?};
+            DrawPath -- "No" --> SubmitDraw(Submit to current Render Pass);
+            DrawPath -- "Yes" --> BarrierPath(Barrier Workflow);
         end
+
+        subgraph "Barrier Workflow"
+            direction TB
+            BarrierPath --> Snapshot[1. Snapshot scene with Texture Copy];
+            Snapshot --> ExecCompute[2. Run all buffered Compute Commands on snapshot];
+            ExecCompute --> SubmitDrawWithBG[3. Submit Draw Command to new Render Pass<br>using computed background];
+        end
+
+        Batch --> ExecCompute;
     end
 
-    C --> G;
-    D --> G;
-    E --> G;
-    F --> G;
+    S --> Loop;
 ```
 
 如果一个命令返回 `Some(BarrierRequirement::SampleBackground)`，渲染器就会在执行它之前插入一个屏障，确保它可以安全地采样之前所有命令的渲染结果。
