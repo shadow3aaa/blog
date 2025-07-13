@@ -135,9 +135,9 @@ graph TD
 
         subgraph "Barrier Workflow"
             direction TB
-            BarrierPath --> Snapshot[1. Snapshot scene with Texture Copy];
-            Snapshot --> ExecCompute[2. Run all buffered Compute Commands on snapshot];
-            ExecCompute --> SubmitDrawWithBG[3. Submit Draw Command to new Render Pass<br>using computed background];
+            BarrierPath --> Snapshot[Snapshot scene with Texture Copy];
+            Snapshot --> ExecCompute[Run all buffered Compute Commands on snapshot];
+            ExecCompute --> SubmitDrawWithBG[Submit Draw Command to new Render Pass<br>using computed background];
         end
 
         Batch --> ExecCompute;
