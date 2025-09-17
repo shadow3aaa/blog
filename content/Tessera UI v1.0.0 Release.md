@@ -1,5 +1,5 @@
 ---
-title: "Tessera UI v1.0.0 版本发布"
+title: "Tessera UI v1.0.0"
 date: 2025-07-21T21:03:00+08:00
 ---
 
