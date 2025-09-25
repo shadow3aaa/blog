@@ -1,0 +1,9 @@
+@import url('https://chinese-fonts-cdn.deno.dev/packages/maple-mono-cn/dist/MapleMono-CN-Regular/result.css');
+
+:root {
+  font-family: "Maple Mono CN" !important;
+}
+
+.hextra-code-block pre code {
+  font-family: "Maple Mono CN" !important;
+}
