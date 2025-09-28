@@ -19,7 +19,10 @@ markup:
     endLevel: 4
     ordered: true
 
+enableGitInfo: true
+
 params:
+  displayUpdatedDate: true
   mermaid:
     enable: true
   navbar:
