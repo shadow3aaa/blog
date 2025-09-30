@@ -174,7 +174,7 @@ async def add_entity(self, entity: Entity):
 添加边的方法同理
 
 ```python
-sync def add_edge(self, from_entity_id: UUID, to_entity_id: UUID, edge: Edge):
+async def add_edge(self, from_entity_id: UUID, to_entity_id: UUID, edge: Edge):
     """
     添加边
 
