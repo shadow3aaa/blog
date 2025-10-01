@@ -3,6 +3,10 @@ title: "小说Agent计划(一)"
 date: 2025-09-25T15:34:00+08:00
 ---
 
+{{< callout icon="sparkles" >}}
+  与Blog同步开发的开源项目: [PlotWeave](https://github.com/shadow3aaa/PlotWeave)
+{{< /callout >}}
+
 ## 前言
 
 使用 LLM 来写小说是一个很有趣的，而且很“符合设计”的事情。我是说，既然它是 “Large Language Model”，我们当然应该用它做一些语言相关的事。

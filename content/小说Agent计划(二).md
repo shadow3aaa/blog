@@ -3,6 +3,10 @@ title: "小说Agent计划(二): 实现关系图"
 date: 2025-09-25T18:09:00+08:00
 ---
 
+{{< callout icon="sparkles" >}}
+  与Blog同步开发的开源项目: [PlotWeave](https://github.com/shadow3aaa/PlotWeave)
+{{< /callout >}}
+
 上次我们提出了小说 Agent 的设计思路，接下来可以实际上手试试是否可行了。
 
 <!--more-->

@@ -3,6 +3,10 @@ title: "小说Agent计划(三): 关系图检索"
 date: 2025-09-26T18:09:00+08:00
 ---
 
+{{< callout icon="sparkles" >}}
+  与Blog同步开发的开源项目: [PlotWeave](https://github.com/shadow3aaa/PlotWeave)
+{{< /callout >}}
+
 在[小说 Agent 计划(二)-实现关系图](../小说agent计划二)中我们设计并实现了关系图模型。接下来我们要为它设计并实现一个向量检索的方法。这样对监督者和创作者 llm 来说关系图才真正可用。
 
 <!--more-->

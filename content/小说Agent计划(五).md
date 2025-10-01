@@ -3,6 +3,10 @@ title: "小说Agent计划(五): 大纲设计阶段 (Outline Design)"
 date: 2025-09-28T16:15:00+08:00
 ---
 
+{{< callout icon="sparkles" >}}
+  与Blog同步开发的开源项目: [PlotWeave](https://github.com/shadow3aaa/PlotWeave)
+{{< /callout >}}
+
 本文的内容是完成[小说 Agent 计划(四)-第一阶段: 大纲设计](../小说agent计划四#第一阶段大纲设计-outline-design)的具体实现。同时也会初始化可视化界面。
 
 <!--more-->

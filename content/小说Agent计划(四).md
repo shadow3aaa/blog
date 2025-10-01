@@ -3,6 +3,10 @@ title: "小说Agent计划(四): agent流程设计"
 date: 2025-09-27T11:33:00+08:00
 ---
 
+{{< callout icon="sparkles" >}}
+  与Blog同步开发的开源项目: [PlotWeave](https://github.com/shadow3aaa/PlotWeave)
+{{< /callout >}}
+
 [小说 Agent 计划(三)-关系图检索](../小说agent计划三)中已经完成了世界记忆的基本功能开发，接下来开始设计 `小说Agent` 的整体流程。
 
 <!--more-->
