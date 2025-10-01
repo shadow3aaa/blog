@@ -3,7 +3,7 @@ title: "小说Agent计划(六): 世界记忆创建阶段 (World Memory Initializ
 date: 2025-09-28T18:09:00+08:00
 ---
 
-本文的内容是完成[小说 Agent 计划(四)-第二阶段：世界记忆创建 (World Memory Initialization)](../#第二阶段世界记忆创建-world-memory-initialization)的具体实现。
+本文的内容是完成[小说 Agent 计划(四)-第二阶段：世界记忆创建 (World Memory Initialization)](../小说agent计划四#第二阶段世界记忆创建-world-memory-initialization)的具体实现。
 
 <!--more-->
 
