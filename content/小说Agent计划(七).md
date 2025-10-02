@@ -1,5 +1,5 @@
 ---
-title: "小说Agent计划(六): 世界记忆创建阶段 (World Memory Initialization)"
+title: "小说Agent计划(七): 分章 (Chaptering)"
 date: 2025-09-28T18:09:00+08:00
 ---
 
