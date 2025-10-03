@@ -1,6 +1,6 @@
 ---
 title: "小说Agent计划(七): 分章 (Chaptering)"
-date: 2025-09-28T18:09:00+08:00
+date: 2025-10-02T16:03:00+08:00
 ---
 
 {{< callout icon="sparkles" >}}
